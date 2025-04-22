@@ -1,4 +1,10 @@
 cloudflare-ech.com
+warframe.com
+api.warframe.com
+content.warframe.com
+origin.warframe.com
+arbiter.warframe.com
+content.warframe.com.edgesuite.net
 dis.gd
 discord-attachments-uploads-prd.storage.googleapis.com
 discord.app
