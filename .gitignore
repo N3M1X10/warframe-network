@@ -1,0 +1,4 @@
+bin/blockcheck/blockcheck.log
+bin/blockcheck/cygwin/tmp/blockcheck_ipset.txt
+bin/blockcheck/cygwin/tmp/zapret-hdr_4491.txt
+bin/blockcheck/cygwin/tmp/zapret-hdr_4591.txt
