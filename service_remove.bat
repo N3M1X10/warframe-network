@@ -20,4 +20,5 @@ sc delete "WinDivert"
 net stop "WinDivert14"
 sc delete "WinDivert14"
 
+timeout /t 3
 endlocal
