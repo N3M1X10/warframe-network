@@ -1,5 +1,4 @@
 cloudflare-ech.com
-api.warframe.com
 dis.gd
 discord-attachments-uploads-prd.storage.googleapis.com
 discord.app
@@ -43,5 +42,3 @@ ffzap.com
 betterttv.net
 7tv.app
 7tv.io
-alecaframe.com
-cdn.alecaframe.com

@@ -20,4 +20,5 @@ sc delete "WinDivert"
 net stop "WinDivert14"
 sc delete "WinDivert14"
 
-echo.&echo [92m END &>nul timeout /t 3&endlocal&exit
+pause
+endlocal
