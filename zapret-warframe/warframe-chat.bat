@@ -10,7 +10,7 @@ set wf_ipset=%LISTS%\ipset-warframe.txt
 set autohost=%LISTS%warframe-autohost.txt
 
 start "zapret: warframe" /min "%BIN%winws.exe" --debug=0 ^
---wf-tcp=80,443,6695-6701 --hostlist-auto="%autohost%" --ipset="%wf_ipset%" ^
+--hostlist-auto="%autohost%" --ipset="%wf_ipset%" ^
 --dpi-desync=fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=badseq
 
 rem --wf-tcp=80,443,6695-6701 --hostlist-auto="%autohost%" --ipset="%wf_ipset%" ^
@@ -20,6 +20,10 @@ rem --wf-tcp=80,443,6695-6701 --hostlist-auto="%autohost%" --ipset="%wf_ipset%" 
 rem --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic="%BIN%quic_initial_www_google_com.bin"
 
 
+
+
+rem --wf-tcp=80,443,6695-6701 --hostlist-auto="%autohost%" --ipset="%wf_ipset%" ^
+rem --dpi-desync=fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=badseq
 
 :: опять еле помогло
 rem --wf-tcp=80,443,6695-6701 --hostlist-auto="%autohost%" --ipset="%wf_ipset%" ^
