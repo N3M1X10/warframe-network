@@ -1,0 +1,77 @@
+@<config_file>|$<config_file>                      ; читать конфигурацию из файла. опция должна быть первой. остальные опции игнорируются.
+
+--debug=0|1                                        ; 1=выводить отладочные сообщения
+--dry-run                                          ; проверить опции командной строки и выйти. код 0 - успешная проверка.
+--version                                          ; вывести версию и выйти
+--comment                                          ; любой текст (игнорируется)
+--daemon                                           ; демонизировать прогу
+--pidfile=<file>                                   ; сохранить PID в файл
+--user=<username>                                  ; менять uid процесса
+--uid=uid[:gid]                                    ; менять uid процесса
+--qnum=N                                           ; номер очереди N
+--bind-fix4                                        ; пытаться решить проблему неверного выбора исходящего интерфейса для сгенерированных ipv4 пакетов
+--bind-fix6                                        ; пытаться решить проблему неверного выбора исходящего интерфейса для сгенерированных ipv6 пакетов
+--wsize=<winsize>[:<scale_factor>]                 ; менять tcp window size на указанный размер в SYN,ACK. если не задан scale_factor, то он не меняется (устарело !)
+--wssize=<winsize>[:<scale_factor>]                ; менять tcp window size на указанный размер в исходящих пакетах. scale_factor по умолчанию 0. (см. conntrack !)
+--wssize-cutoff=[n|d|s]N                           ; изменять server window size в исходящих пакетах (n), пакетах данных (d), относительных sequence (s) по номеру меньше N
+--ctrack-timeouts=S:E:F[:U]                        ; таймауты внутреннего conntrack в состояниях SYN, ESTABLISHED, FIN, таймаут udp. по умолчанию 60:300:60:60
+--hostcase                                         ; менять регистр заголовка "Host:" по умолчанию на "host:".
+--hostnospace                                      ; убрать пробел после "Host:" и переместить его в конец значения "User-Agent:" для сохранения длины пакета
+--methodeol                                        ; добавить перевод строки в unix стиле ('\n') перед методом и убрать пробел из Host: : "GET / ... Host: domain.com" => "\nGET  / ... Host:domain.com"
+--hostspell=HoST                                   ; точное написание заголовка Host (можно "HOST" или "HoSt"). автоматом включает --hostcase
+--domcase                                          ; домен после Host: сделать таким : TeSt.cOm
+--dpi-desync=[<mode0>,]<mode>[,<mode2]             ; атака по десинхронизации DPI. mode : synack syndata fake fakeknown rst rstack hopbyhop destopt ipfrag1 multisplit multidisorder fakedsplit fakeddisorder ipfrag2 udplen tamper
+--dpi-desync-fwmark=<int|0xHEX>                    ; бит fwmark для пометки десинхронизирующих пакетов, чтобы они повторно не падали в очередь. default = 0x40000000
+--dpi-desync-ttl=<int>                             ; установить ttl для десинхронизирующих пакетов
+--dpi-desync-ttl6=<int>                            ; установить ipv6 hop limit для десинхронизирующих пакетов. если не указано, используется значение ttl
+--dpi-desync-autottl=[<delta>[:<min>[-<max>]]]     ; режим auto ttl для ipv4 и ipv6. по умолчанию: 1:3-20. delta=0 отключает функцию.
+--dpi-desync-autottl6=[<delta>[:<min>[-<max>]]]    ; переопределение предыдущего параметра для ipv6
+--dpi-desync-fooling=<fooling>                     ; дополнительные методики как сделать, чтобы фейковый пакет не дошел до сервера. none md5sig badseq badsum datanoack hopbyhop hopbyhop2
+--dpi-desync-repeats=<N>                           ; посылать каждый генерируемый в nfqws пакет N раз (не влияет на остальные пакеты)
+--dpi-desync-skip-nosni=0|1                        ; 1(default)=не применять dpi desync для запросов без hostname в SNI, в частности для ESNI
+--dpi-desync-split-pos=N|-N|marker+N|marker-N      ; список через запятую маркеров для tcp сегментации в режимах split и disorder
+--dpi-desync-split-seqovl=N|-N|marker+N|marker-N   ; единичный маркер, определяющий величину перекрытия sequence в режимах split и disorder. для split поддерживается только положительное число.
+--dpi-desync-split-seqovl-pattern=<filename>|0xHEX ; чем заполнять фейковую часть overlap
+--dpi-desync-fakedsplit-pattern=<filename>|0xHEX   ; чем заполнять фейки в fakedsplit/fakeddisorder
+--dpi-desync-badseq-increment=<int|0xHEX>          ; инкремент sequence number для badseq. по умолчанию -10000
+--dpi-desync-badack-increment=<int|0xHEX>          ; инкремент ack sequence number для badseq. по умолчанию -66000
+--dpi-desync-any-protocol=0|1                      ; 0(default)=работать только по http request и tls clienthello  1=по всем непустым пакетам данных
+--dpi-desync-fake-http=<filename>|0xHEX	           ; файл, содержащий фейковый http запрос для dpi-desync=fake, на замену стандартному www.iana.org
+--dpi-desync-fake-tls=<filename>|0xHEX|!           ; файл, содержащий фейковый tls clienthello для dpi-desync=fake, на замену стандартному. '!' = стандартный фейк
+--dpi-desync-fake-tls-mod=mod[,mod]                ; список через запятую режимов runtime модификации фейков : none,rnd,rndsni,sni=<sni>,dupsid,padencap
+--dpi-desync-fake-unknown=<filename>|0xHEX         ; файл, содержащий фейковый пейлоад неизвестного протокола для dpi-desync=fake, на замену стандартным нулям 256 байт
+--dpi-desync-fake-syndata=<filename>|0xHEX         ; файл, содержащий фейковый пейлоад пакета SYN для режима десинхронизации syndata
+--dpi-desync-fake-quic=<filename>|0xHEX            ; файл, содержащий фейковый QUIC Initial
+--dpi-desync-fake-dht=<filename>|0xHEX             ; файл, содержащий фейковый пейлоад DHT протокола для dpi-desync=fake, на замену стандартным нулям 64 байт
+--dpi-desync-fake-discord=<filename>|0xHEX         ; файл, содержащий фейковый пейлоад Discord протокола нахождения IP адреса для голосовых чатов для dpi-desync=fake, на замену стандартным нулям 64 байт
+--dpi-desync-fake-stun=<filename>|0xHEX            ; файл, содержащий фейковый пейлоад STUN протокола для dpi-desync=fake, на замену стандартным нулям 64 байт
+--dpi-desync-fake-unknown-udp=<filename>|0xHEX     ; файл, содержащий фейковый пейлоад неизвестного udp протокола для dpi-desync=fake, на замену стандартным нулям 64 байт
+--dpi-desync-udplen-increment=<int>                ; насколько увеличивать длину udp пейлоада в режиме udplen
+--dpi-desync-udplen-pattern=<filename>|0xHEX       ; чем добивать udp пакет в режиме udplen. по умолчанию - нули
+--dpi-desync-start=[n|d|s]N                        ; применять dpi desync только в исходящих пакетах (n), пакетах данных (d), относительных sequence (s) по номеру больше или равно N
+--dpi-desync-cutoff=[n|d|s]N                       ; применять dpi desync только в исходящих пакетах (n), пакетах данных (d), относительных sequence (s) по номеру меньше N
+--hostlist=<filename>                              ; действовать только над доменами, входящими в список из filename. поддомены автоматически учитываются, если хост не начинается с '^'.
+                                                   ; в файле должен быть хост на каждой строке.
+                                                   ; список читается при старте и хранится в памяти в виде иерархической структуры для быстрого поиска.
+                                                   ; при изменении времени модификации файла он перечитывается автоматически по необходимости
+                                                   ; список может быть запакован в gzip. формат автоматически распознается и разжимается
+                                                   ; списков может быть множество. пустой общий лист = его отсутствие
+                                                   ; хосты извлекаются из Host: хедера обычных http запросов и из SNI в TLS ClientHello.
+--hostlist-domains=<domain_list>                   ; фиксированный список доменов через зяпятую. можно использовать # в начале для комментирования отдельных доменов.
+--hostlist-exclude=<filename>                      ; не применять дурение к доменам из листа. может быть множество листов. схема аналогична include листам.
+--hostlist-exclude-domains=<domain_list>           ; фиксированный список доменов через зяпятую. можно использовать # в начале для комментирования отдельных доменов.
+--hostlist-auto=<filename>                         ; обнаруживать автоматически блокировки и заполнять автоматический hostlist (требует перенаправления входящего трафика)
+--hostlist-auto-fail-threshold=<int>               ; сколько раз нужно обнаружить ситуацию, похожую на блокировку, чтобы добавить хост в лист (по умолчанию: 3)
+--hostlist-auto-fail-time=<int>                    ; все эти ситуации должны быть в пределах указанного количества секунд (по умолчанию: 60)
+--hostlist-auto-retrans-threshold=<int>            ; сколько ретрансмиссий запроса считать блокировкой (по умолчанию: 3)
+--hostlist-auto-debug=<logfile>                    ; лог положительных решений по autohostlist. позволяет разобраться почему там появляются хосты.
+--new                                              ; начало новой стратегии (новый профиль)
+--skip                                             ; не использовать этот профиль . полезно для временной деактивации профиля без удаления параметров.
+--filter-l3=ipv4|ipv6                              ; фильтр версии ip для текущей стратегии
+--filter-tcp=[~]port1[-port2]|*                    ; фильтр портов tcp для текущей стратегии. ~ означает инверсию. установка фильтра tcp и неустановка фильтра udp запрещает udp. поддерживается список через запятую.
+--filter-udp=[~]port1[-port2]|*                    ; фильтр портов udp для текущей стратегии. ~ означает инверсию. установка фильтра udp и неустановка фильтра tcp запрещает tcp. поддерживается список через запятую.
+--filter-l7=<proto>                                ; фильтр протокола L6-L7. поддерживается несколько значений через запятую. proto : http tls quic wireguard dht discord stun unknown
+--ipset=<filename>                                 ; включающий ip list. на каждой строчке ip или cidr ipv4 или ipv6. поддерживается множество листов и gzip. перечитка автоматическая.
+--ipset-ip=<ip_list>                               ; фиксированный список подсетей через запятую. можно использовать # в начале для комментирования отдельных подсетей.
+--ipset-exclude=<filename>                         ; исключающий ip list. на каждой строчке ip или cidr ipv4 или ipv6. поддерживается множество листов и gzip. перечитка автоматическая.
+--ipset-exclude-ip=<ip_list>                       ; фиксированный список подсетей через запятую. можно использовать # в начале для комментирования отдельных подсетей.
