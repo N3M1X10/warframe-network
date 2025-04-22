@@ -1,3 +1,8 @@
+- https://github.com/bol-van/zapret
+- https://github.com/bol-van/zapret-win-bundle
+- https://github.com/bol-van/zapret/blob/master/docs/windows.md
+
+
 @<config_file>|$<config_file>                      ; читать конфигурацию из файла. опция должна быть первой. остальные опции игнорируются.
 
 --debug=0|1                                        ; 1=выводить отладочные сообщения
